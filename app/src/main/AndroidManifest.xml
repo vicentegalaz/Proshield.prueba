@@ -13,26 +13,32 @@
         android:theme="@style/Theme.Proshield"
         tools:targetApi="31">
         <activity
-            android:name=".Qr"
+            android:name=".Item_Usuario"
             android:exported="false" />
+        <activity
+            android:name=".TablaUsuarios"
+            android:exported="false" />
+        <activity
+            android:name=".Registrarusuarios"
+            android:exported="false" />
+        <activity
+            android:name=".Qr"
+            android:exported="true" />
         <activity
             android:name=".ListaTrabajador"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity2"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Perfil"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".RegistrarUsuario"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".OlvidarContrasenia"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Inicio"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

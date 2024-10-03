@@ -32,11 +32,16 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    // Dependencias de androidx
+    implementation("androidx.fragment:fragment-ktx:1.5.7") // Fragment KTX
+    implementation("androidx.recyclerview:recyclerview:1.2.1") // RecyclerView
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

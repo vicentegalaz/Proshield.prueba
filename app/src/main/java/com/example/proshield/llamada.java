@@ -1,12 +1,18 @@
 package com.example.proshield;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,12 +21,9 @@ import android.view.ViewGroup;
  */
 public class llamada extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -28,15 +31,6 @@ public class llamada extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment llamada.
-     */
-    // TODO: Rename and change types and number of parameters
     public static llamada newInstance(String param1, String param2) {
         llamada fragment = new llamada();
         Bundle args = new Bundle();
@@ -55,10 +49,34 @@ public class llamada extends Fragment {
         }
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_llamada, container, false);
+        View view = inflater.inflate(R.layout.fragment_llamada, container, false);
+
+        // Initialize buttons
+        Button button132 = view.findViewById(R.id.button3);
+        Button button133 = view.findViewById(R.id.button4);
+        Button button131 = view.findViewById(R.id.button5);
+
+        // Set click listeners for buttons
+        button132.setOnClickListener(v -> makePhoneCall("132"));
+        button133.setOnClickListener(v -> makePhoneCall("133"));
+        button131.setOnClickListener(v -> makePhoneCall("131"));
+
+        return view;
+    }
+
+    private void makePhoneCall(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+        // Verificar y solicitar permisos antes de hacer la llamada
+        if (getActivity().checkSelfPermission(android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(getActivity(), "Permiso de llamada no concedido", Toast.LENGTH_SHORT).show();
+            // Aquí puedes pedir permisos si no se han concedido
+        }
     }
 }

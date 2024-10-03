@@ -2,39 +2,36 @@ package com.example.proshield;
 
 import android.os.Bundle;
 import android.view.Menu;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ListaTrabajador extends AppCompatActivity {
+    private UsuarioViewModel usuarioViewModel;
+    private UsuarioAdapter usuarioAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_lista_trabajador);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
 
-        });
+        RecyclerView recyclerViewUsuarios = findViewById(R.id.recyclerViewUsuarios);
+        recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(this));
 
+        usuarioAdapter = new UsuarioAdapter();
+        recyclerViewUsuarios.setAdapter(usuarioAdapter);
+
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel.getUsuarios().observe(this, usuarios -> usuarioAdapter.setUsuarios(usuarios));
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu1, menu);
         return true;
     }
-
-
 }

@@ -84,12 +84,14 @@ public class Inicio extends AppCompatActivity {
                     .commit();
         } else if (id == R.id.op2) {
             Toast.makeText(this, "registrara un usuario", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Inicio.this, RegistrarUsuario.class);
+            Intent intent = new Intent(Inicio.this, Registrarusuarios.class);
             startActivity(intent);
         } else if (id == R.id.op3) {
             Toast.makeText(this, "Ver Qr", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Inicio.this, Qr.class);
-            startActivity(intent);
+            Fragment fragment = new Qr(); // Reemplaza Qr con el nombre de tu fragmento
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenedor, fragment) // Reemplaza R.id.contenedor con el ID de tu contenedor
+                    .commit();
         } else if (id == R.id.op4) {
             Toast.makeText(this, "lista de los trabajadores", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Inicio.this, ListaTrabajador.class);
