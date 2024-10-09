@@ -7,72 +7,89 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Título del login -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:text="Iniciar sesion"
+        android:text="Iniciar sesión"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Campo para el correo electrónico -->
     <EditText
         android:id="@+id/correo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
-        android:ems="10"
-        android:hint="@string/Correo"
+        android:layout_marginTop="32dp"
+        android:hint="Correo"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
+    <!-- Campo para la contraseña -->
     <EditText
         android:id="@+id/contrasenia"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/Contrasenia"
+        android:layout_marginTop="16dp"
+        android:hint="Contraseña"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/correo"
-        app:layout_constraintTop_toBottomOf="@+id/correo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
-    <EditText
-        android:id="@+id/cargo"
+    <!-- Texto indicativo para el cargo -->
+    <TextView
+        android:id="@+id/textViewCargo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:ems="10"
-        android:hint="@string/Cargo"
-        android:inputType="text"
+        android:layout_marginTop="8dp"
         android:text="Cargo"
-        app:layout_constraintStart_toStartOf="@+id/contrasenia"
-        app:layout_constraintTop_toBottomOf="@+id/contrasenia" />
+        app:layout_constraintTop_toBottomOf="@id/contrasenia"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="32dp"/>
 
+    <!-- Spinner para seleccionar el cargo -->
+    <Spinner
+        android:id="@+id/spinnerCargo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCargo"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"/>
+
+    <!-- Botón para iniciar sesión -->
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="46dp"
-        android:hint="@string/Btniniciar"
-        android:onClick="login"
+        android:layout_marginTop="32dp"
         android:text="Iniciar"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView3" />
+        android:onClick="login"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCargo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
+    <!-- Texto para recuperar la cuenta -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="146dp"
+        android:layout_marginTop="16dp"
+        android:text="Recuperar cuenta"
         android:clickable="true"
         android:onClick="RecuperarCuenta"
-        android:text="Recuperar cuenta"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -1,5 +1,6 @@
 package com.example.proshield;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -23,6 +25,7 @@ public class llamada extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int REQUEST_CALL_PERMISSION = 1;  // Constante para solicitar permisos
 
     private String mParam1;
     private String mParam2;
@@ -57,9 +60,9 @@ public class llamada extends Fragment {
         View view = inflater.inflate(R.layout.fragment_llamada, container, false);
 
         // Initialize buttons
-        Button button132 = view.findViewById(R.id.button3);
-        Button button133 = view.findViewById(R.id.button4);
-        Button button131 = view.findViewById(R.id.button5);
+        Button button132 = view.findViewById(R.id.button4);
+        Button button133 = view.findViewById(R.id.button5);
+        Button button131 = view.findViewById(R.id.button3);
 
         // Set click listeners for buttons
         button132.setOnClickListener(v -> makePhoneCall("132"));
@@ -70,13 +73,32 @@ public class llamada extends Fragment {
     }
 
     private void makePhoneCall(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-        // Verificar y solicitar permisos antes de hacer la llamada
-        if (getActivity().checkSelfPermission(android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            // Permiso concedido, hacer la llamada
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
             startActivity(intent);
         } else {
-            Toast.makeText(getActivity(), "Permiso de llamada no concedido", Toast.LENGTH_SHORT).show();
-            // Aquí puedes pedir permisos si no se han concedido
+            // Permiso no concedido, solicitar permiso
+            requestCallPermission();
+        }
+    }
+
+    private void requestCallPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CALL_PHONE)) {
+            Toast.makeText(getActivity(), "El permiso para realizar llamadas es necesario para esta función", Toast.LENGTH_LONG).show();
+        }
+        // Solicitar el permiso
+        requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getActivity(), "Permiso concedido. Intenta realizar la llamada nuevamente.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Permiso de llamada denegado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
